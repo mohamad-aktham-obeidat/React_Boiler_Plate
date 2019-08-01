@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-export default class Todos extends Component {
+export default class TasksList extends Component {
   state = {
   };
   render() {
     return (
       <>
-        <h1>Todos Compnent</h1>
+        <h1>TasksList Compnent</h1>
       </ >
     );
   }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Todos from './components/Todos';
+import TasksList from './components/TasksList';
+import Item from './components/Item';
 
 export default class App extends Component {
   state = {
@@ -9,7 +10,8 @@ export default class App extends Component {
     return (
       <>
         <h1>Main Compnent</h1>
-        <Todos />
+        <TasksList />
+        <Item />
       </ >
     );
   }
