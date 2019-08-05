@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import TodoItem from './TodoItem';
+import AddNewTask from './AddNewTask';
 export default class Todos extends Component {
   render() {
     const { tasks } = this.props;
     return (
       <React.Fragment>
-        <h6>Todos</h6>
+        <AddNewTask />
         {tasks.map((elem, i) => <TodoItem key={i} task={elem} toggleCompleteState ={this.props.toggleCompleteState}/>)}
       </React.Fragment>
     );

@@ -50,7 +50,6 @@ export default class App extends Component {
     const { tasks } = this.state;
     return (
       <React.Fragment>
-        <h6>App</h6>
         <Todos tasks={tasks} toggleCompleteState={this.toggleCompleteState} />
       </React.Fragment >
     );
