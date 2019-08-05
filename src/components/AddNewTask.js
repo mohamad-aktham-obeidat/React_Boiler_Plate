@@ -2,13 +2,15 @@ import React from 'react';
 
 class AddNewTask extends React.Component{
 
-    render(){
+   
 
+    render(){
+        const {handleChange, handleClick} = this.props;
         return(
-            <React.Fragment>
-                <input type='text' placeholder='Add New Task Here...'></input>
-                <button className='btn btn-primary'>Add Task</button>
-            </React.Fragment>
+            <div style={{position:'absolute', top:'20px', left:'40%'}}>
+                <input style={{padding:'6px'}} type='text' placeholder='Add New Task Here...' onChange={handleChange}></input>
+                <button className='btn-primary' style={{marginLeft:'6px', padding:'6px'}} onClick={handleClick}>Add Task</button>
+            </div>
         );
     }
 }

@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import Todos from './components/Todos';
+import AddNewTask from './components/AddNewTask';
 
 export default class App extends Component {
+  
+  constructor(newTask){
+    super()
+    this.newTask =newTask;
+    this.newId=this.state.tasks.length;
+  }
   state = {
     tasks: [
       {
@@ -31,9 +38,7 @@ export default class App extends Component {
       }
     ]
   };
-  // changeData = () => {
-  //   this.setState({ data: 'Alice Zaheer' });
-  // }
+ 
 
   toggleCompleteState = (id) =>{
     console.log(id)
@@ -46,10 +51,25 @@ export default class App extends Component {
     })
     
   }
+
+  handleChange = (e) =>{
+         this.newTask = e.target.value;
+        // return newTask;
+        
+        console.log(this.newTask);
+        
+  }
+  handleClick = () =>{
+    this.newId++;
+    let obj = {id: this.newId, title:this.newTask}
+    this.setState({tasks:[...this.state.tasks, obj]})
+  }
+
   render() {
     const { tasks } = this.state;
     return (
       <React.Fragment>
+        <AddNewTask handleChange={this.handleChange} handleClick={this.handleClick}/>
         <Todos tasks={tasks} toggleCompleteState={this.toggleCompleteState} />
       </React.Fragment >
     );
