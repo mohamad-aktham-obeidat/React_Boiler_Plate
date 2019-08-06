@@ -41,15 +41,14 @@ app.get('/tasks/:id', (req, res) => {
 });
 
 
-app.put('tasks/:id', (req, res) => {
+app.put('/tasks/:id', (req, res) => {
 
-  console.log('adfasfa');
-  
   let requestedId = parseInt(req.originalUrl.slice(7));
-  let result = tasks.forEach(element => {
+  let result = tasks.map((element) => {
 
     if (element.id === requestedId) {
-      tasks.isCompleted = !tasks.isCompleted;
+      tasks.isCompleted = !tasks.isCompleted
+      return element;
     }
   })
   res.json(result);
