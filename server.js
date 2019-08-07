@@ -14,10 +14,6 @@ app.get('/', (req, res) => {
 });
 
 
-app.get('/1', (req, res) => {
-  res.send(req.url);
-});
-
 //Returns Tasks Array As JSON
 app.get('/tasks', (req, res) => {
   res.json(tasks);
@@ -40,16 +36,27 @@ app.get('/tasks/:id', (req, res) => {
   res.json(result);
 });
 
+app.delete('/tasks/:id', (req, res) => {
+
+  let requestedId = parseInt(req.originalUrl.slice(7));
+  let result = tasks.map((elem) => {
+    if (elem.id === requestedId) {
+       elem = null;
+    }
+    return elem;
+  })
+  res.json(result);
+});
+
 
 app.put('/tasks/:id', (req, res) => {
 
   let requestedId = parseInt(req.originalUrl.slice(7));
   let result = tasks.map((element) => {
-
     if (element.id === requestedId) {
-      tasks.isCompleted = !tasks.isCompleted
-      return element;
+      element.isCompleted = !element.isCompleted
     }
+    return element;
   })
   res.json(result);
 });
