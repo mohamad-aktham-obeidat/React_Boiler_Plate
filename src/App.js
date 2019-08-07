@@ -4,10 +4,11 @@ import AddNewTask from './components/AddNewTask';
 import axios from 'axios';
 export default class App extends Component {
   
-  constructor(){
+  constructor() {
     super()
+    this.newTask = '';
+    // this.newId = this.state.tasks.length;
     this.state = {
-      
       tasks: []
     };
   }
@@ -15,7 +16,7 @@ export default class App extends Component {
   //@Method GET
   //Fetch All Tasks From Server To React App
   componentDidMount() {
-    axios.get('/tasks')
+    axios.get('http://localhost:4000/tasks')
       .then(tasks => {
         this.setState({
           tasks: tasks.data
@@ -26,17 +27,6 @@ export default class App extends Component {
       });
   }
 
-  //Change Complete Status When Checkbox Checked Or Not.
-  toggleCompleteState = (id) =>{
-    console.log(id)
-    this.setState({
-      tasks: this.state.tasks.map(task => {
-        if(task.id === id)
-          task.isCompleted = !task.isCompleted;
-        return task;
-      })
-    }) 
-  }
 
   //Get Input Value And Store It in Variable.
   handleChange = (e) =>{
@@ -44,12 +34,34 @@ export default class App extends Component {
         console.log(this.newTask);
   }
 
-  //Add New Task Click Event To Add New Task 
-  handleClick = () =>{
-    this.newId++;
-    let obj = {id: this.newId, title:this.newTask}
-    this.setState({tasks:[...this.state.tasks, obj]})
+  //@Method POST
+  //Add New Task To Server When Click Button 
+  handleClick = () => {
+    axios.post('http://localhost:4000/tasks', {
+        id: ++this.state.tasks.length,
+        title: this.newTask,
+        isCompleted: false
+      })
+      .then(response => {
+        this.setState({tasks: response.data});
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
+
+  //Change Complete Status When Checkbox Checked Or Not.
+  toggleCompleteState = (id) =>{
+      console.log(id)
+      this.setState({
+        tasks: this.state.tasks.map(task => {
+          if(task.id === id)
+            task.isCompleted = !task.isCompleted;
+          return task;
+        })
+      }) 
+  }
+
 
   render() {
     const { tasks } = this.state;
