@@ -6,12 +6,12 @@ export default class App extends Component {
   
   constructor(){
     super()
-    this.newTask ='';
-    this.newId=0;
     this.state = {tasks: []};
    
   }
   
+  //@Method GET
+  //Fetch All Tasks From Server To React App
   componentDidMount() {
     axios.get('/tasks')
       .then(tasks => {
@@ -24,6 +24,7 @@ export default class App extends Component {
       });
   }
 
+  //Change Complete Status When Checkbox Checked Or Not.
   toggleCompleteState = (id) =>{
     console.log(id)
     this.setState({
@@ -35,10 +36,13 @@ export default class App extends Component {
     }) 
   }
 
+  //Get Input Value And Store It in Variable.
   handleChange = (e) =>{
          this.newTask = e.target.value;
         console.log(this.newTask);
   }
+
+  //Add New Task Click Event To Add New Task 
   handleClick = () =>{
     this.newId++;
     let obj = {id: this.newId, title:this.newTask}
