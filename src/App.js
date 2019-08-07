@@ -1,44 +1,28 @@
 import React, { Component } from 'react';
 import Todos from './components/Todos';
 import AddNewTask from './components/AddNewTask';
-
+import axios from 'axios';
 export default class App extends Component {
   
-  constructor(newTask){
+  constructor(){
     super()
-    this.newTask =newTask;
-    this.newId=this.state.tasks.length;
+    this.newTask ='';
+    this.newId=0;
+    this.state = {tasks: []};
+   
   }
-  state = {
-    tasks: [
-      {
-        id: 1,
-        title: "Download Zoom",
-        isCompleted: false
-      },
-      {
-        id: 2,
-        title: "Eat Fried Chicken",
-        isCompleted: true
-      },
-      {
-        id: 3,
-        title: "Play Games",
-        isCompleted: false
-      },
-      {
-        id: 4,
-        title: "Go for Shopping",
-        isCompleted: false
-      },
-      {
-        id: 5,
-        title: "Watch Movie",
-        isCompleted: false
-      }
-    ]
-  };
- 
+  
+  componentDidMount() {
+    axios.get('/tasks')
+      .then(tasks => {
+        this.setState({
+          tasks: tasks.data
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
   toggleCompleteState = (id) =>{
     console.log(id)
@@ -48,16 +32,12 @@ export default class App extends Component {
           task.isCompleted = !task.isCompleted;
         return task;
       })
-    })
-    
+    }) 
   }
 
   handleChange = (e) =>{
          this.newTask = e.target.value;
-        // return newTask;
-        
         console.log(this.newTask);
-        
   }
   handleClick = () =>{
     this.newId++;
@@ -70,7 +50,7 @@ export default class App extends Component {
     return (
       <React.Fragment>
         <AddNewTask handleChange={this.handleChange} handleClick={this.handleClick}/>
-        <Todos tasks={tasks} toggleCompleteState={this.toggleCompleteState} />
+        <Todos tasks={tasks} toggleCompleteState={this.toggleCompleteState }/>
       </React.Fragment >
     );
   }

@@ -6,12 +6,12 @@ export default class TodoItem extends Component {
     
   }
   render() {
-    const { title, isCompleted } = this.props.task;
+    const {id, title, isCompleted} = this.props.task;
     
     return (
       <div style={{margin:'20px'}}>
         <p style={{ textDecoration: (isCompleted) ? 'line-through' : 'none', display:'inline'}}>
-          <input checked ={isCompleted} type="checkbox" onChange={this.props.toggleCompleteState.bind(this, this.props.task.id)} />{title}
+          <input checked ={isCompleted} type="checkbox" onChange={this.props.toggleCompleteState.bind(this, id)} />{title}
         </p>
         <button className='btn-danger' style={{display:'inline', position:'absolute', right:'20px', margin:'8px', padding:'6px'}}>Remove Task</button> <br/>
       </div>
