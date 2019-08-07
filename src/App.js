@@ -51,15 +51,20 @@ export default class App extends Component {
   }
 
   //Change Complete Status When Checkbox Checked Or Not.
-  toggleCompleteState = (id) =>{
-      console.log(id)
-      this.setState({
-        tasks: this.state.tasks.map(task => {
-          if(task.id === id)
-            task.isCompleted = !task.isCompleted;
-          return task;
-        })
-      }) 
+  toggleCompleteState = (id) => {
+    console.log(id)
+    this.state.tasks.map(elem => {
+        if (elem.id === id) {
+          axios.put(`http://localhost:4000/${id}`, {
+              isCompleted: !elem.isCompleted
+            })
+            .then(response => {
+              this.setState({
+                tasks: response.data
+              });
+            })
+        }
+      })
   }
 
 
